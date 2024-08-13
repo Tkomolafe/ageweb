@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NextPage = ({ selectedImage, onNavigate }) => {
+const NextPage = ({ selectedImage, setCurrentPage, handleEstimateAge }) => {
   return (
     <div style={styles.container}>
       {selectedImage && (
@@ -8,10 +8,18 @@ const NextPage = ({ selectedImage, onNavigate }) => {
           <img src={selectedImage} alt="Selected" style={styles.image} />
         </div>
       )}
-      <button style={styles.switchButton} onClick={() => onNavigate('uploadOptions')}>
+      <button style={styles.switchButton} onClick={() => setCurrentPage('uploadOptions')}>
         UPLOAD AGAIN
       </button>
-      <button style={styles.proceedButton}>PROCEED TO AGE ESTIMATION</button>
+      <button
+        style={styles.proceedButton}
+        onClick={() => {
+          handleEstimateAge();
+          setCurrentPage('ageEstimationPage');
+        }}
+      >
+        PROCEED TO AGE ESTIMATION
+      </button>
     </div>
   );
 };

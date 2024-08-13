@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root'); // Set the app element for accessibility reasons
 
 const SignupForm = ({ onNavigate }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
   const handleSignIn = () => {
     if (onNavigate) {
       onNavigate('loginForm');
     } else {
       console.error('onNavigate is not defined');
+    }
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleCheckboxChange = (event) => {
+    setTermsAccepted(event.target.checked);
+    if (!event.target.checked) {
+      openModal();
     }
   };
 
@@ -53,16 +74,34 @@ const SignupForm = ({ onNavigate }) => {
           </div>
         </div>
         <div style={styles.rememberMeContainer}>
-          <input type="checkbox" id="terms" name="terms" style={styles.checkbox} />
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            style={styles.checkbox}
+            onChange={handleCheckboxChange}
+          />
           <label style={styles.rememberMeLabel} htmlFor="terms">
-            I accept the terms & conditions
+            <strong style={styles.underlineText}>I accept the terms & conditions</strong>
           </label>
         </div>
-        <button type="submit" style={styles.button}>SIGN UP</button>
+        <button type="submit" style={styles.button} disabled={!termsAccepted}>SIGN UP</button>
       </form>
       <p style={styles.signupText}>
         Own an Account? <span style={styles.signupLink} onClick={handleSignIn}>SIGN IN</span>
       </p>
+
+      {/* Modal for terms and conditions */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Terms and Conditions"
+        style={modalStyles}
+      >
+        <h2>Terms and Conditions</h2>
+        <p>Welcome to Age Estimator. These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms. If you do not agree with any part of these terms, please do not use our services. We collect personal information such as your username, email address, and password when you register for an account. This information is used to create and manage your account, and to communicate with you about our services. We also collect information about your interactions with our services, including your IP address, browser type, and access times, to improve our services and understand how users interact with our website. We implement reasonable security measures to protect your personal information from unauthorized access, alteration, or disclosure, but cannot guarantee absolute security. We do not sell, trade, or otherwise transfer your personal information to outside parties except as required by law or necessary to provide our services. We may share your data with third-party service providers who assist us in operating our website or conducting our business, provided they agree to keep this information confidential. You have the right to access, correct, or delete your personal information, and to restrict or object to the processing of your data. To exercise these rights, please contact us at [Your Contact Information]. We may update these Terms and Conditions from time to time, and any changes will be posted on this page with an updated revision date. Your continued use of our services after any modifications constitutes your acceptance of the new terms. If you have any questions or concerns about these Terms and Conditions or our data practices, please contact us at [Your Contact Information]. By checking the box, you confirm that you have read, understood, and agree to these Terms and Conditions. Thank you for using Age Estimator.</p>
+        <button onClick={closeModal} style={styles.button}>Close</button>
+      </Modal>
     </div>
   );
 };
@@ -126,6 +165,9 @@ const styles = {
   rememberMeLabel: {
     color: '#888',
   },
+  underlineText: {
+    textDecoration: 'underline',
+  },
   button: {
     width: '100%',
     padding: '12px',
@@ -144,6 +186,24 @@ const styles = {
   signupLink: {
     color: '#28a745',
     cursor: 'pointer',
+  },
+};
+
+const modalStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  content: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '80%',
+    maxWidth: '600px',
+    padding: '20px',
+    border: 'none',
+    borderRadius: '4px',
+    backgroundColor: '#fff',
   },
 };
 
