@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/ageweb/static/js/main.ef685030.js",
+    "index.html": "/ageweb/index.html",
+    "main.ef685030.js.map": "/ageweb/static/js/main.ef685030.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ef685030.js"
+  ]
+}
