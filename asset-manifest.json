@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/ageweb/static/js/main.ef685030.js",
-    "index.html": "/ageweb/index.html",
-    "main.ef685030.js.map": "/ageweb/static/js/main.ef685030.js.map"
+    "main.js": "/my-age-app/static/js/main.007b75bf.js",
+    "index.html": "/my-age-app/index.html",
+    "main.007b75bf.js.map": "/my-age-app/static/js/main.007b75bf.js.map"
   },
   "entrypoints": [
-    "static/js/main.ef685030.js"
+    "static/js/main.007b75bf.js"
   ]
 }
